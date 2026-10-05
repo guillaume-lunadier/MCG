@@ -1,0 +1,42 @@
+// Museum Card Game (MCG) - Chargement des boosters
+
+let boosterPacks = [];
+let boosterSettings = {};
+
+// Charger les boosters depuis le JSON
+fetch('src/data/boosters.json')
+    .then(response => response.json())
+    .then(data => {
+        boosterPacks = data.boosterPacks;
+        boosterSettings = data.boosterSettings;
+        console.log('Boosters chargés:', boosterPacks.length);
+    })
+    .catch(error => {
+        console.error('Erreur de chargement des boosters:', error);
+        // Boosters par défaut
+        boosterPacks = getDefaultBoosterPacks();
+        boosterSettings = getDefaultBoosterSettings();
+    });
+
+// Boosters par défaut
+function getDefaultBoosterPacks() {
+    return [
+        {
+            id: "pack_001",
+            name: "Booster Classique",
+            description: "7 cartes aléatoires.",
+            cardsPerPack: 7,
+            rarityRates: {"Commune": 60, "Inhabituelle": 25, "Rare": 10, "Mythique": 5},
+            guaranteed: [{"rarity": "Inhabituelle", "count": 1}],
+            price: 100
+        }
+    ];
+}
+
+function getDefaultBoosterSettings() {
+    return {
+        cardsPerBooster: 7,
+        rarityRates: {"Commune": 60, "Inhabituelle": 25, "Rare": 10, "Mythique": 5},
+        cooldown: 600000
+    };
+}

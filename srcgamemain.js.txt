@@ -1,0 +1,142 @@
+// Museum Card Game (MCG) - Logique principale
+
+// Variables globales
+let gameState = {
+    players: [],
+    currentPlayerIndex: 0,
+    turn: 1,
+    deck: [],
+    gameStarted: false,
+    maxPlayers: 10,
+    minPlayers: 2,
+    currentScreen: 'main-menu'
+};
+
+// Initialiser le jeu
+function initGame() {
+    if (typeof allCards === 'undefined' || allCards.length === 0 ||
+        typeof boosterPacks === 'undefined' || boosterPacks.length === 0) {
+        setTimeout(initGame, 100);
+        return;
+    }
+
+    console.log('Initialisation du jeu MCG...');
+    console.log('Cartes disponibles:', allCards.length);
+    console.log('Boosters disponibles:', boosterPacks.length);
+
+    // Initialiser la collection du joueur
+    window.initPlayerCollection ? window.initPlayerCollection() : initPlayerCollection();
+
+    // Initialiser l'interface
+    setupUI();
+
+    // Attacher les événements des boutons du menu
+    attachMenuEvents();
+
+    // Initialiser le marché
+    window.initMarket ? window.initMarket() : console.log('Market system not loaded');
+
+    // Mettre à jour les stats du joueur
+    updatePlayerStats();
+}
+
+// Mettre à jour les stats du joueur
+function updatePlayerStats() {
+    const coinsElement = document.getElementById('player-coins');
+    const ecusElement = document.getElementById('player-ecus');
+    const boostersElement = document.getElementById('opened-boosters');
+
+    if (coinsElement) {
+        const collection = window.playerCollection || {};
+        coinsElement.textContent = collection.coins || 0;
+    }
+
+    if (ecusElement) {
+        const ecus = window.playerEcus !== undefined ? window.playerEcus : (window.playerCollection ? window.playerCollection.ecus : 0);
+        ecusElement.textContent = ecus;
+    }
+
+    if (boostersElement) {
+        const collection = window.playerCollection || {};
+        boostersElement.textContent = collection.openedBoosters || 0;
+    }
+}
+
+// Attacher les événements du menu
+function attachMenuEvents() {
+    const playBtn = document.getElementById('play-btn');
+    const collectionBtn = document.getElementById('collection-btn');
+    const deckBuilderBtn = document.getElementById('deck-builder-btn');
+    const boosterBtn = document.getElementById('booster-btn');
+    const marketBtn = document.getElementById('market-btn');
+    const settingsBtn = document.getElementById('settings-btn');
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+        });
+    }
+
+    if (collectionBtn) {
+        collectionBtn.addEventListener('click', () => {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('collection-screen').style.display = 'block';
+            window.displayCollection ? window.displayCollection() : console.log('Collection display not loaded');
+        });
+    }
+
+    if (deckBuilderBtn) {
+        deckBuilderBtn.addEventListener('click', () => {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('deck-builder-screen').style.display = 'block';
+            window.initDeckBuilder ? window.initDeckBuilder() : console.log('Deck builder not loaded');
+        });
+    }
+
+    if (boosterBtn) {
+        boosterBtn.addEventListener('click', () => {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('booster-screen').style.display = 'block';
+            window.displayBoosterPacks ? window.displayBoosterPacks() : console.log('Booster system not loaded');
+        });
+    }
+
+    if (marketBtn) {
+        marketBtn.addEventListener('click', () => {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('market-screen').style.display = 'block';
+            window.updateMarketUI ? window.updateMarketUI() : console.log('Market UI not loaded');
+            window.displaySellCards ? window.displaySellCards() : console.log('Sell cards not loaded');
+        });
+    }
+
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', () => {
+            alert('Paramètres - Fonctionnalité à venir!');
+        });
+    }
+
+    // Boutons de retour
+    const backToMenuButtons = document.querySelectorAll('[id*=\"back\"]');
+    backToMenuButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.menu-screen').forEach(screen => {
+                screen.style.display = 'none';
+            });
+            document.getElementById('main-menu').style.display = 'block';
+        });
+    });
+}
+
+// Initialiser l'interface
+function setupUI() {
+    updatePlayerStats();
+}
+
+// Démarrer quand le DOM est chargé
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGame);
+} else {
+    initGame();
+}

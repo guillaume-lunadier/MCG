@@ -1,0 +1,21 @@
+{
+  "name": "Museum Card Game (MCG)",
+  "short_name": "MCG",
+  "description": "Joue avec l'histoire jusqu'à la victoire. Un jeu de cartes stratégique basé sur les monuments historiques et œuvres d'art.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1a120b",
+  "theme_color": "#d4af37",
+  "icons": [
+    {
+      "src": "assets/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ]
+}

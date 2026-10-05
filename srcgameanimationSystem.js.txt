@@ -1,0 +1,142 @@
+// Museum Card Game (MCG) - Système d'animations
+
+// Données par défaut pour les descriptions
+let cardDescriptions = {};
+let scenes = {};
+
+// Charger les descriptions
+fetch('src/data/cardDescriptions.json')
+    .then(response => response.json())
+    .then(data => {
+        cardDescriptions = data.descriptions || {};
+        scenes = data.scenes || {};
+        console.log('Descriptions chargées:', Object.keys(cardDescriptions).length);
+    })
+    .catch(error => {
+        console.error('Erreur de chargement des descriptions:', error);
+        cardDescriptions = getDefaultCardDescriptions();
+        scenes = getDefaultScenes();
+    });
+
+// Données par défaut
+function getDefaultCardDescriptions() {
+    return {
+        "monument_001": { audioText: "Le Pont du Gard, chef-d'œuvre romain.", duration: 5, scene: "roman" },
+        "oeuvre_003": { audioText: "La Joconde, peinte par Léonard de Vinci.", duration: 5, scene: "renaissance" }
+    };
+}
+
+function getDefaultScenes() {
+    return {
+        "roman": { name: "Rome Antique", description: "Fond de la Rome antique", image: "assets/scenes/roman.jpg" },
+        "renaissance": { name: "Renaissance", description: "Atelier d'artiste", image: "assets/scenes/renaissance.jpg" },
+        "museum": { name: "Musée", description: "Galerie de musée", image: "assets/scenes/museum.jpg" }
+    };
+}
+
+// Démarrer l'animation pour une carte
+function startCardAnimation(card) {
+    if (card.rarity !== 'Rare' && card.rarity !== 'Mythique') return;
+
+    if (typeof window.stopCardAnimation === 'function') {
+        window.stopCardAnimation();
+    }
+
+    const description = cardDescriptions[card.id] || {
+        audioText: `${card.name} - Une carte ${card.rarity} de type ${card.type}.`,
+        duration: card.rarity === 'Rare' ? 5 : 10,
+        scene: 'museum'
+    };
+
+    const scene = scenes[description.scene] || scenes['museum'];
+    const duration = description.duration * 1000;
+
+    // Créer le modal si nécessaire
+    if (!document.getElementById('animation-modal')) {
+        const modal = document.createElement('div');
+        modal.id = 'animation-modal';
+        modal.className = 'modal';
+        modal.style.display = 'none';
+        modal.innerHTML = `
+            <div class="modal-content animation-content">
+                <span class="close animation-close">&times;</span>
+                <div class="animation-scene">
+                    <img id="animation-scene-image" src="${scene.image || 'assets/scenes/museum.jpg'}" alt="Scène">
+                </div>
+                <div class="animation-card-container">
+                    <div id="animation-card" class="animated-card rarity-${card.rarity.toLowerCase()}">
+                        <img id="animation-card-image" src="${card.image || 'https://via.placeholder.com/200x300?text=' + encodeURIComponent(card.name)}" alt="${card.name}">
+                    </div>
+                </div>
+                <div class="animation-text">
+                    <h2 id="animation-card-name">${card.name}</h2>
+                    <p id="animation-card-description">${description.audioText}</p>
+                </div>
+                <button id="skip-animation" class="btn btn-secondary">Passer</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.querySelector('.animation-close').addEventListener('click', () => {
+            if (typeof window.stopCardAnimation === 'function') window.stopCardAnimation();
+        });
+
+        document.getElementById('skip-animation').addEventListener('click', () => {
+            if (typeof window.stopCardAnimation === 'function') window.stopCardAnimation();
+        });
+    }
+
+    // Afficher le modal
+    const modal = document.getElementById('animation-modal');
+    modal.style.display = 'block';
+
+    // Jouer l'audio
+    if (typeof window.playAudioDescription === 'function') {
+        window.playAudioDescription(description.audioText);
+    }
+
+    // Fermer après la durée
+    setTimeout(() => {
+        if (typeof window.stopCardAnimation === 'function') window.stopCardAnimation();
+    }, duration);
+}
+
+// Arrêter l'animation
+function stopCardAnimation() {
+    const modal = document.getElementById('animation-modal');
+    if (modal) modal.style.display = 'none';
+
+    if (typeof window.stopAudioDescription === 'function') {
+        window.stopAudioDescription();
+    }
+}
+
+// Jouer la description audio
+function playAudioDescription(text) {
+    if ('speechSynthesis' in window) {
+        try {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            const voices = speechSynthesis.getVoices();
+            const frenchVoice = voices.find(voice => voice.lang.startsWith('fr')) || voices[0];
+            if (frenchVoice) utterance.voice = frenchVoice;
+            speechSynthesis.speak(utterance);
+        } catch (e) {
+            console.error('Erreur audio:', e);
+        }
+    }
+}
+
+// Arrêter l'audio
+function stopAudioDescription() {
+    if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+    }
+}
+
+// Exporter les fonctions
+window.startCardAnimation = startCardAnimation;
+window.stopCardAnimation = stopCardAnimation;
+window.cardDescriptions = cardDescriptions;
+window.scenes = scenes;

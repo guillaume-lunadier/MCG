@@ -1,0 +1,196 @@
+// Museum Card Game (MCG) - Système de Deck Building et Collection
+
+// Variables globales pour la collection et les boosters
+let playerCollection = {
+    cards: [],
+    boosters: [],
+    coins: 1000,
+    ecus: 100,
+    openedBoosters: 0,
+    lastBoosterOpenTime: null,
+    boosterCooldown: 10 * 60 * 1000
+};
+
+// Charger la collection depuis localStorage
+function initPlayerCollection() {
+    const savedCollection = localStorage.getItem('mcg_collection');
+    if (savedCollection) {
+        try {
+            playerCollection = JSON.parse(savedCollection);
+            console.log('Collection chargée depuis localStorage');
+        } catch (e) {
+            console.error('Erreur de chargement de la collection:', e);
+            playerCollection = getDefaultCollection();
+        }
+    } else {
+        playerCollection = getDefaultCollection();
+    }
+
+    // Assurer que les propriétés existent
+    if (!playerCollection.cards) playerCollection.cards = [];
+    if (!playerCollection.boosters) playerCollection.boosters = [];
+    if (typeof playerCollection.coins === 'undefined') playerCollection.coins = 1000;
+    if (typeof playerCollection.ecus === 'undefined') playerCollection.ecus = 100;
+    if (typeof playerCollection.openedBoosters === 'undefined') playerCollection.openedBoosters = 0;
+    if (!playerCollection.lastBoosterOpenTime) playerCollection.lastBoosterOpenTime = null;
+    playerCollection.boosterCooldown = 10 * 60 * 1000;
+
+    // Synchroniser avec le marché
+    if (window.playerEcus !== undefined) {
+        window.playerEcus = playerCollection.ecus;
+    }
+
+    saveCollection();
+}
+
+// Collection par défaut
+function getDefaultCollection() {
+    return {
+        cards: [
+            ...getRandomCards(allCards.filter(c => c.rarity === 'Commune'), 10),
+            ...getRandomCards(allCards.filter(c => c.rarity === 'Inhabituelle'), 5),
+            ...getRandomCards(allCards.filter(c => c.rarity === 'Rare'), 2)
+        ],
+        boosters: [],
+        coins: 1000,
+        ecus: 100,
+        openedBoosters: 0,
+        lastBoosterOpenTime: null,
+        boosterCooldown: 10 * 60 * 1000
+    };
+}
+
+// Sauvegarder la collection
+function saveCollection() {
+    localStorage.setItem('mcg_collection', JSON.stringify(playerCollection));
+    updatePlayerStats();
+}
+
+// Obtenir des cartes aléatoires
+function getRandomCards(cardsArray, count) {
+    const shuffled = [...cardsArray].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, Math.min(count, shuffled.length));
+}
+
+// Vérifier le cooldown du booster
+function isBoosterCooldownOver() {
+    if (!playerCollection.lastBoosterOpenTime) return true;
+    const now = Date.now();
+    const timeSinceLastOpen = now - playerCollection.lastBoosterOpenTime;
+    return timeSinceLastOpen >= playerCollection.boosterCooldown;
+}
+
+// Temps restant pour le cooldown
+function getBoosterCooldownTime() {
+    if (!playerCollection.lastBoosterOpenTime) return 0;
+    const now = Date.now();
+    const timeSinceLastOpen = now - playerCollection.lastBoosterOpenTime;
+    const remainingTime = playerCollection.boosterCooldown - timeSinceLastOpen;
+    return Math.max(0, remainingTime);
+}
+
+// Formater le temps (MM:SS)
+function formatCooldownTime(milliseconds) {
+    const totalSeconds = Math.ceil(milliseconds / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Ouvrir un booster
+function openBooster(packId) {
+    if (!isBoosterCooldownOver()) {
+        const remainingTime = getBoosterCooldownTime();
+        alert(`Vous devez attendre encore ${formatCooldownTime(remainingTime)} avant de pouvoir ouvrir un autre booster.`);
+        return null;
+    }
+
+    const pack = boosterPacks.find(p => p.id === packId);
+    if (!pack) {
+        console.error('Booster non trouvé:', packId);
+        return null;
+    }
+
+    if (playerCollection.coins < pack.price) {
+        alert(`Vous n'avez pas assez de pièces pour acheter ce booster (nécessite ${pack.price} pièces).`);
+        return null;
+    }
+
+    const confirmBuy = confirm(`Voulez-vous acheter le booster "${pack.name}" pour ${pack.price} pièces ?`);
+    if (!confirmBuy) return null;
+
+    playerCollection.coins -= pack.price;
+    const boosterCards = generateBoosterCards(pack);
+    playerCollection.cards.push(...boosterCards);
+    playerCollection.boosters.push({
+        packId: pack.id,
+        packName: pack.name,
+        cards: boosterCards.map(c => c.id),
+        date: new Date().toISOString()
+    });
+    playerCollection.openedBoosters++;
+    playerCollection.lastBoosterOpenTime = Date.now();
+    saveCollection();
+    return boosterCards;
+}
+
+// Générer les cartes d'un booster
+function generateBoosterCards(pack) {
+    const cards = [];
+    const rarityRates = pack.rarityRates || boosterSettings.rarityRates;
+    const guaranteed = pack.guaranteed || [];
+
+    guaranteed.forEach(g => {
+        if (g.rarity) {
+            for (let i = 0; i < g.count; i++) {
+                const card = getRandomCardOfRarity(g.rarity);
+                if (card) cards.push(card);
+            }
+        } else if (g.type) {
+            for (let i = 0; i < g.count; i++) {
+                const card = getRandomCardOfType(g.type);
+                if (card) cards.push(card);
+            }
+        }
+    });
+
+    while (cards.length < pack.cardsPerPack) {
+        const card = getRandomCardWithRarityRates(rarityRates);
+        if (card) cards.push(card);
+    }
+
+    return cards;
+}
+
+// Obtenir une carte aléatoire avec une rareté spécifique
+function getRandomCardOfRarity(rarity) {
+    const filteredCards = allCards.filter(card => card.rarity === rarity);
+    if (filteredCards.length === 0) return null;
+    return filteredCards[Math.floor(Math.random() * filteredCards.length)];
+}
+
+// Obtenir une carte aléatoire avec un type spécifique
+function getRandomCardOfType(type) {
+    const filteredCards = allCards.filter(card => card.type === type);
+    if (filteredCards.length === 0) return null;
+    return filteredCards[Math.floor(Math.random() * filteredCards.length)];
+}
+
+// Obtenir une carte aléatoire avec des taux de rareté
+function getRandomCardWithRarityRates(rarityRates) {
+    const weightedRarities = [];
+    Object.entries(rarityRates).forEach(([rarity, rate]) => {
+        for (let i = 0; i < rate; i++) {
+            weightedRarities.push(rarity);
+        }
+    });
+    const randomRarity = weightedRarities[Math.floor(Math.random() * weightedRarities.length)];
+    return getRandomCardOfRarity(randomRarity);
+}
+
+// Exporter les fonctions
+window.playerCollection = playerCollection;
+window.initPlayerCollection = initPlayerCollection;
+window.saveCollection = saveCollection;
+window.openBooster = openBooster;
+window.getRandomCards = getRandomCards;

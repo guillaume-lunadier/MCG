@@ -1,0 +1,55 @@
+{
+  "monuments": [
+    {"id": "monument_001", "name": "Pont du Gard", "type": "Monument", "rarity": "Commune", "pv": 1, "families": ["Monuments de France", "Antiquité"], "cost": {"type": "free"}, "effect": null, "image": "pont_du_gard.png"},
+    {"id": "monument_002", "name": "Arc de Triomphe", "type": "Monument", "rarity": "Inhabituelle", "pv": 2, "families": ["Monuments de France", "XIXe siècle"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "effect": null, "image": "arc_de_triomphe.png"},
+    {"id": "monument_003", "name": "Tour Eiffel", "type": "Monument", "rarity": "Mythique", "pv": 3, "families": ["Monuments de France", "XIXe siècle"], "cost": {"type": "sacrifice", "rarity": "Inhabituelle", "quantity": 1}, "effect": null, "image": "tour_eiffel.png"},
+    {"id": "monument_004", "name": "Pyramide de Gizeh", "type": "Monument", "rarity": "Mythique", "pv": 5, "families": ["Antiquité égyptienne", "Merveilles du monde"], "cost": {"type": "sacrifice", "rarity": "Rare", "quantity": 1}, "effect": "Immunité aux événements négatifs", "image": "pyramide_gizeh.png"},
+    {"id": "monument_005", "name": "Colisée", "type": "Monument", "rarity": "Mythique", "pv": 3, "families": ["Antiquité", "Rome"], "cost": {"type": "sacrifice", "rarity": "Inhabituelle", "quantity": 1}, "effect": null, "image": "colisee.png"},
+    {"id": "monument_006", "name": "Notre-Dame de Paris", "type": "Monument", "rarity": "Inhabituelle", "pv": 2, "families": ["Monuments de France", "Moyen Âge"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "effect": null, "image": "notre_dame.png"},
+    {"id": "monument_007", "name": "Statue de la Liberté", "type": "Monument", "rarity": "Inhabituelle", "pv": 2, "families": ["Monuments célèbres", "XIXe siècle"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "effect": null, "image": "statue_liberte.png"},
+    {"id": "monument_008", "name": "Taj Mahal", "type": "Monument", "rarity": "Mythique", "pv": 5, "families": ["Merveilles du monde", "Architecture islamique"], "cost": {"type": "sacrifice", "rarity": "Rare", "quantity": 1}, "effect": null, "image": "taj_mahal.png"}
+  ],
+  "oeuvres": [
+    {"id": "oeuvre_001", "name": "Petit croquis", "type": "Œuvre", "rarity": "Commune", "pv": 1, "families": ["Dessins", "XIXe siècle"], "cost": {"type": "free"}, "effect": null, "image": "petit_croquis.png"},
+    {"id": "oeuvre_002", "name": "La Vénus de Milo", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 2, "families": ["Sculptures", "Antiquité"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "effect": "Piochez 1 carte", "image": "venus_de_milo.png"},
+    {"id": "oeuvre_003", "name": "La Joconde", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 3, "families": ["Renaissance", "Léonard de Vinci"], "cost": {"type": "sacrifice", "rarity": "Inhabituelle", "quantity": 1}, "effect": "Copiez l'effet de la dernière œuvre jouée", "image": "la_joconde.png"},
+    {"id": "oeuvre_004", "name": "Le David", "type": "Œuvre", "rarity": "Mythique", "pv": 5, "families": ["Renaissance", "Michel-Ange"], "cost": {"type": "sacrifice", "rarity": "Rare", "quantity": 1}, "effect": "+1 PV à toutes vos cartes posées", "image": "le_david.png"},
+    {"id": "oeuvre_005", "name": "Nymphéas", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 2, "families": ["Impressionnistes", "Monet"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "effect": null, "image": "nympheas.png"},
+    {"id": "oeuvre_006", "name": "La Nuit étoilée", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 3, "families": ["Post-impressionnistes", "Van Gogh"], "cost": {"type": "sacrifice", "rarity": "Inhabituelle", "quantity": 1}, "effect": "Soignez 2 PV à toutes vos cartes posées", "image": "nuit_etoilee.png"},
+    {"id": "oeuvre_007", "name": "Le Penseur", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 2, "families": ["Sculptures", "Rodin"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "effect": null, "image": "le_penseur.png"},
+    {"id": "oeuvre_008", "name": "Le Dernier Repas", "type": "Œuvre", "rarity": "Mythique", "pv": 5, "families": ["Renaissance", "Léonard de Vinci"], "cost": {"type": "sacrifice", "rarity": "Rare", "quantity": 1}, "effect": null, "image": "dernier_repas.png"}
+  ],
+  "artistes": [
+    {"id": "artiste_001", "name": "Peintre de rue", "type": "Artiste", "rarity": "Commune", "pv": 1, "families": ["Artiste Commune", "Street Art"], "cost": {"type": "free"}, "artistEffect": {"type": "bonusPV", "target": "Commune", "family": "Street Art", "value": 1}, "image": "peintre_de_rue.png"},
+    {"id": "artiste_002", "name": "Monet", "type": "Artiste", "rarity": "Commune", "pv": 2, "families": ["Artiste Inhabituelle", "Impressionnistes"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "artistEffect": {"type": "freeCost", "target": "Inhabituelle", "family": "Impressionnistes"}, "image": "monet.png"},
+    {"id": "artiste_003", "name": "Van Gogh", "type": "Artiste", "rarity": "Inhabituelle", "pv": 3, "families": ["Artiste Rare", "Post-impressionnistes"], "cost": {"type": "sacrifice", "rarity": "Inhabituelle", "quantity": 1}, "artistEffect": {"type": "reduceCost", "target": "Rare", "family": "Post-impressionnistes", "newCost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}}, "image": "van_gogh.png"},
+    {"id": "artiste_004", "name": "Léonard de Vinci", "type": "Artiste", "rarity": "Mythique", "pv": 5, "families": ["Artiste Mythique", "Renaissance"], "cost": {"type": "sacrifice", "rarity": "Rare", "quantity": 1}, "artistEffect": {"type": "reduceAllCostsAndBonusPV", "family": "Renaissance", "costReduction": 1, "pvBonus": 1}, "image": "leonard_de_vinci.png"},
+    {"id": "artiste_005", "name": "Rodin", "type": "Artiste", "rarity": "Commune", "pv": 2, "families": ["Artiste Inhabituelle", "Sculptures"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "artistEffect": {"type": "freeCost", "target": "Inhabituelle", "family": "Sculptures"}, "image": "rodin.png"},
+    {"id": "artiste_006", "name": "Michel-Ange", "type": "Artiste", "rarity": "Mythique", "pv": 5, "families": ["Artiste Mythique", "Renaissance"], "cost": {"type": "sacrifice", "rarity": "Rare", "quantity": 1}, "artistEffect": {"type": "reduceAllCostsAndBonusPV", "family": "Renaissance", "costReduction": 1, "pvBonus": 1}, "image": "michel_ange.png"},
+    {"id": "artiste_007", "name": "Picasso", "type": "Artiste", "rarity": "Inhabituelle", "pv": 3, "families": ["Artiste Rare", "Cubisme"], "cost": {"type": "sacrifice", "rarity": "Inhabituelle", "quantity": 1}, "artistEffect": {"type": "reduceCost", "target": "Rare", "family": "Cubisme", "newCost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}}, "image": "picasso.png"},
+    {"id": "artiste_008", "name": "Renoir", "type": "Artiste", "rarity": "Commune", "pv": 2, "families": ["Artiste Inhabituelle", "Impressionnistes"], "cost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}, "artistEffect": {"type": "freeCost", "target": "Inhabituelle", "family": "Impressionnistes"}, "image": "renoir.png"},
+    {"id": "artiste_009", "name": "Raphaël", "type": "Artiste", "rarity": "Inhabituelle", "pv": 3, "families": ["Artiste Rare", "Renaissance"], "cost": {"type": "sacrifice", "rarity": "Inhabituelle", "quantity": 1}, "artistEffect": {"type": "reduceCost", "target": "Rare", "family": "Renaissance", "newCost": {"type": "sacrifice", "rarity": "Commune", "quantity": 1}}, "image": "raphael.png"},
+    {"id": "artiste_010", "name": "Dali", "type": "Artiste", "rarity": "Mythique", "pv": 5, "families": ["Artiste Mythique", "Surréalisme"], "cost": {"type": "sacrifice", "rarity": "Rare", "quantity": 1}, "artistEffect": {"type": "reduceAllCostsAndBonusPV", "family": "Surréalisme", "costReduction": 1, "pvBonus": 1}, "image": "dali.png"}
+  ],
+  "evenements": [
+    {"id": "evenement_001", "name": "Inauguration", "type": "Événement", "rarity": "Commune", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "poseGratuite", "target": "Commune", "quantity": 1}, "image": "inauguration.png"},
+    {"id": "evenement_002", "name": "Restauration", "type": "Événement", "rarity": "Commune", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "soin", "value": 1, "target": "allOwnCards"}, "image": "restauration.png"},
+    {"id": "evenement_003", "name": "Vol", "type": "Événement", "rarity": "Inhabituelle", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "removeCard", "target": "anyPlayer", "cardType": "Commune", "from": "terrain"}, "image": "vol.png"},
+    {"id": "evenement_004", "name": "Fermeture", "type": "Événement", "rarity": "Inhabituelle", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "skipTurn", "target": "anyPlayer"}, "image": "fermeture.png"},
+    {"id": "evenement_005", "name": "Exposition", "type": "Événement", "rarity": "Rare", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "pioche", "value": 2, "target": "self"}, "image": "exposition.png"},
+    {"id": "evenement_006", "name": "Séisme", "type": "Événement", "rarity": "Rare", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "destroyCard", "target": "anyPlayer", "cardType": "Monument", "from": "terrain"}, "image": "seisme.png"},
+    {"id": "evenement_007", "name": "Mécénat royal", "type": "Événement", "rarity": "Mythique", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "poseGratuite", "target": "any", "quantity": 2}, "image": "mecenat_royal.png"},
+    {"id": "evenement_008", "name": "Guerre mondiale", "type": "Événement", "rarity": "Mythique", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "destroyAllCards", "target": "allPlayers", "cardTypes": ["Monument", "Œuvre"]}, "image": "guerre_mondiale.png"},
+    {"id": "evenement_011", "name": "Parjure", "type": "Événement", "rarity": "Inhabituelle", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "disableArtist", "target": "anyPlayer", "artistType": "any", "duration": 3}, "image": "parjure.png"},
+    {"id": "evenement_012", "name": "Scandale", "type": "Événement", "rarity": "Rare", "pv": 0, "families": [], "cost": {"type": "free"}, "effect": {"type": "disableAllArtists", "target": "anyPlayer", "duration": 2}, "image": "scandale.png"}
+  ],
+  "gameSettings": {
+    "minPlayers": 2,
+    "maxPlayers": 10,
+    "startingHand": 7,
+    "drawPerTurn": 1,
+    "maxHandSize": 10,
+    "pvObjective": {"2-4": 20, "5-10": 25},
+    "actionsPerTurn": {"poseCard": 1, "playEvent": 1}
+  }
+}

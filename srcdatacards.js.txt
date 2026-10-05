@@ -1,0 +1,58 @@
+// Museum Card Game (MCG) - Chargement des cartes et images
+
+let allCards = [];
+let cardImages = {};
+
+// Charger les cartes
+fetch('src/data/cards.json')
+    .then(response => response.json())
+    .then(data => {
+        allCards = [
+            ...data.monuments || [],
+            ...data.oeuvres || [],
+            ...data.artistes || [],
+            ...data.evenements || []
+        ];
+        console.log('Cartes chargées:', allCards.length);
+        // Ajouter les URLs d'images
+        loadCardImages();
+    })
+    .catch(error => {
+        console.error('Erreur de chargement des cartes:', error);
+        allCards = getDefaultCards();
+        loadCardImages();
+    });
+
+// Charger les images des cartes
+function loadCardImages() {
+    fetch('src/data/cardImages.json')
+        .then(response => response.json())
+        .then(data => {
+            cardImages = data.images || {};
+            console.log('Images des cartes chargées:', Object.keys(cardImages).length);
+            // Mettre à jour les cartes avec les URLs d'images
+            allCards.forEach(card => {
+                if (!card.image || card.image.endsWith('.png') || card.image.includes('assets/')) {
+                    card.image = cardImages[card.id] || data.fallback;
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Erreur de chargement des images:', error);
+            cardImages = {};
+        });
+}
+
+// Cartes par défaut
+function getDefaultCards() {
+    return [
+        {id: "monument_001", name: "Pont du Gard", type: "Monument", rarity: "Commune", pv: 1, families: ["Monuments de France"], cost: {type: "free"}, effect: null, image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Pont_du_Gard_2014.jpg/400px-Pont_du_Gard_2014.jpg"},
+        {id: "oeuvre_001", name: "Petit croquis", type: "Œuvre", rarity: "Commune", pv: 1, families: ["Dessins"], cost: {type: "free"}, effect: null, image: "https://via.placeholder.com/400x600?text=Petit+croquis"},
+        {id: "artiste_001", name: "Peintre de rue", type: "Artiste", rarity: "Commune", pv: 1, families: ["Street Art"], cost: {type: "free"}, artistEffect: {type: "bonusPV", target: "Commune", family: "Street Art", value: 1}, image: "https://via.placeholder.com/400x600?text=Peintre+de+rue"},
+        {id: "evenement_001", name: "Inauguration", type: "Événement", rarity: "Commune", pv: 0, families: [], cost: {type: "free"}, effect: {type: "poseGratuite", target: "Commune", quantity: 1}, image: "https://via.placeholder.com/400x600?text=Inauguration"}
+    ];
+}
+
+// Exporter
+window.allCards = allCards;
+window.cardImages = cardImages;

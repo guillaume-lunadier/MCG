@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a120b">
+    <title>Museum Card Game (MCG)</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Main Menu -->
+        <div id="main-menu" class="menu-screen">
+            <div class="menu-content">
+                <h1>🏛️ Museum Card Game (MCG)</h1>
+                <p class="slogan">Joue avec l'histoire jusqu'à la victoire</p>
+                <div class="menu-buttons">
+                    <button id="play-btn" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Jouer
+                    </button>
+                    <button id="collection-btn" class="btn btn-secondary">
+                        <i class="fas fa-folder-open"></i> Collection
+                    </button>
+                    <button id="deck-builder-btn" class="btn btn-secondary">
+                        <i class="fas fa-layer-group"></i> Construire un Deck
+                    </button>
+                    <button id="booster-btn" class="btn btn-secondary">
+                        <i class="fas fa-gift"></i> Ouvrir un Booster
+                    </button>
+                    <button id="market-btn" class="btn btn-secondary">
+                        <i class="fas fa-coins"></i> Marché
+                    </button>
+                    <button id="settings-btn" class="btn btn-secondary">
+                        <i class="fas fa-cog"></i> Paramètres
+                    </button>
+                </div>
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-coins"></i> <span id="player-coins">0</span> écus
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-box-open"></i> <span id="opened-boosters">0</span> boosters ouverts
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Market Screen -->
+        <div id="market-screen" class="menu-screen" style="display: none;">
+            <div class="market-content">
+                <h2>🏛️ Marché MCG</h2>
+                <p class="market-slogan">Échangez vos cartes contre des écus</p>
+                <div class="market-stats">
+                    <div class="stat-card">
+                        <h4><i class="fas fa-coins"></i> Mes écus</h4>
+                        <p id="player-ecus">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4><i class="fas fa-chart-line"></i> Valeur totale</h4>
+                        <p id="collection-total-value">0 écus</p>
+                    </div>
+                </div>
+                <div class="market-tabs">
+                    <button id="market-sell-tab" class="market-tab active" data-tab="sell">
+                        <i class="fas fa-arrow-up"></i> Vendre
+                    </button>
+                    <button id="market-buy-tab" class="market-tab" data-tab="buy">
+                        <i class="fas fa-arrow-down"></i> Acheter
+                    </button>
+                </div>
+                <div id="market-sell" class="market-tab-content">
+                    <h3>Vendre des cartes de ma collection</h3>
+                    <p class="market-info">Sélectionnez une carte à vendre (frais de 5%)</p>
+                    <div class="market-filters">
+                        <select id="market-sell-filter-type">
+                            <option value="all">Tous les types</option>
+                            <option value="Monument">Monuments</option>
+                            <option value="Œuvre">Œuvres</option>
+                            <option value="Artiste">Artistes</option>
+                            <option value="Événement">Événements</option>
+                        </select>
+                        <select id="market-sell-filter-rarity">
+                            <option value="all">Toutes les raretés</option>
+                            <option value="Commune">Commune</option>
+                            <option value="Inhabituelle">Inhabituelle</option>
+                            <option value="Rare">Rare</option>
+                            <option value="Mythique">Mythique</option>
+                        </select>
+                        <input type="text" id="market-sell-search" placeholder="Rechercher une carte...">
+                    </div>
+                    <div id="market-sell-cards" class="market-cards-grid"></div>
+                </div>
+                <div id="market-buy" class="market-tab-content" style="display: none;">
+                    <h3>Acheter des cartes</h3>
+                    <p class="market-info">Achetez des cartes du marché (frais de 10%)</p>
+                    <div class="market-filters">
+                        <select id="market-buy-filter-type">
+                            <option value="all">Tous les types</option>
+                            <option value="Monument">Monuments</option>
+                            <option value="Œuvre">Œuvres</option>
+                            <option value="Artiste">Artistes</option>
+                            <option value="Événement">Événements</option>
+                        </select>
+                        <select id="market-buy-filter-rarity">
+                            <option value="all">Toutes les raretés</option>
+                            <option value="Commune">Commune</option>
+                            <option value="Inhabituelle">Inhabituelle</option>
+                            <option value="Rare">Rare</option>
+                            <option value="Mythique">Mythique</option>
+                        </select>
+                        <input type="text" id="market-buy-search" placeholder="Rechercher une carte...">
+                    </div>
+                    <div id="market-buy-cards" class="market-cards-grid"></div>
+                </div>
+                <div class="market-actions">
+                    <button id="market-refresh" class="btn btn-secondary">
+                        <i class="fas fa-sync-alt"></i> Rafraîchir
+                    </button>
+                    <button id="market-back" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Retour
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/data/cards.js"></script>
+    <script src="src/data/boosters.js"></script>
+    <script src="src/data/market.js"></script>
+    <script src="src/game/deckBuilder.js"></script>
+    <script src="src/game/boosterSystem.js"></script>
+    <script src="src/game/marketSystem.js"></script>
+    <script src="src/game/animationSystem.js"></script>
+    <script src="src/game/main.js"></script>
+</body>
+</html>

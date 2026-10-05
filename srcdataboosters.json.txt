@@ -1,0 +1,104 @@
+{
+  "boosterPacks": [
+    {
+      "id": "pack_001",
+      "name": "Booster Classique",
+      "description": "7 cartes aléatoires avec des taux de drop standards.",
+      "cardsPerPack": 7,
+      "rarityRates": {
+        "Commune": 60,
+        "Inhabituelle": 25,
+        "Rare": 10,
+        "Mythique": 5
+      },
+      "guaranteed": [{"rarity": "Inhabituelle", "count": 1}],
+      "price": 100,
+      "image": "booster_classique.png"
+    },
+    {
+      "id": "pack_002",
+      "name": "Booster Premium",
+      "description": "7 cartes avec des taux de drop améliorés pour les raretés élevées.",
+      "cardsPerPack": 7,
+      "rarityRates": {
+        "Commune": 40,
+        "Inhabituelle": 30,
+        "Rare": 20,
+        "Mythique": 10
+      },
+      "guaranteed": [
+        {"rarity": "Inhabituelle", "count": 1},
+        {"rarity": "Rare", "count": 1}
+      ],
+      "price": 200,
+      "image": "booster_premium.png"
+    },
+    {
+      "id": "pack_003",
+      "name": "Booster Artiste",
+      "description": "7 cartes avec une garantie de 1 Artiste.",
+      "cardsPerPack": 7,
+      "rarityRates": {
+        "Commune": 35,
+        "Inhabituelle": 35,
+        "Rare": 20,
+        "Mythique": 10
+      },
+      "guaranteed": [
+        {"rarity": "Inhabituelle", "count": 1},
+        {"type": "Artiste", "count": 1}
+      ],
+      "price": 250,
+      "image": "booster_artiste.png"
+    },
+    {
+      "id": "pack_004",
+      "name": "Booster Monument",
+      "description": "7 cartes avec une garantie de 2 Monuments.",
+      "cardsPerPack": 7,
+      "rarityRates": {
+        "Commune": 45,
+        "Inhabituelle": 30,
+        "Rare": 15,
+        "Mythique": 10
+      },
+      "guaranteed": [
+        {"type": "Monument", "count": 2}
+      ],
+      "price": 300,
+      "image": "booster_monument.png"
+    },
+    {
+      "id": "pack_005",
+      "name": "Booster Légendaire",
+      "description": "7 cartes avec une garantie de 1 Mythique !",
+      "cardsPerPack": 7,
+      "rarityRates": {
+        "Commune": 20,
+        "Inhabituelle": 30,
+        "Rare": 40,
+        "Mythique": 10
+      },
+      "guaranteed": [
+        {"rarity": "Mythique", "count": 1}
+      ],
+      "price": 500,
+      "image": "booster_legendaire.png"
+    }
+  ],
+  "boosterSettings": {
+    "name": "Booster MCG",
+    "description": "Un booster contient 7 cartes avec des taux de drop basés sur les raretés.",
+    "cardsPerBooster": 7,
+    "rarityRates": {
+      "Commune": 60,
+      "Inhabituelle": 25,
+      "Rare": 10,
+      "Mythique": 5
+    },
+    "guaranteedRarities": [
+      {"rarity": "Inhabituelle", "min": 1, "max": 2}
+    ],
+    "cooldown": 600000
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "market": {
+    "monument_001": {"name": "Pont du Gard", "type": "Monument", "rarity": "Commune", "pv": 1, "value": 1, "buyable": true, "sellable": true},
+    "monument_002": {"name": "Arc de Triomphe", "type": "Monument", "rarity": "Inhabituelle", "pv": 2, "value": 14, "buyable": true, "sellable": true},
+    "monument_003": {"name": "Tour Eiffel", "type": "Monument", "rarity": "Mythique", "pv": 3, "value": 3600, "buyable": true, "sellable": true},
+    "monument_004": {"name": "Pyramide de Gizeh", "type": "Monument", "rarity": "Mythique", "pv": 5, "value": 4800, "buyable": true, "sellable": true},
+    "monument_005": {"name": "Colisée", "type": "Monument", "rarity": "Mythique", "pv": 3, "value": 3600, "buyable": true, "sellable": true},
+    "monument_006": {"name": "Notre-Dame de Paris", "type": "Monument", "rarity": "Inhabituelle", "pv": 2, "value": 14, "buyable": true, "sellable": true},
+    "monument_007": {"name": "Statue de la Liberté", "type": "Monument", "rarity": "Inhabituelle", "pv": 2, "value": 14, "buyable": true, "sellable": true},
+    "monument_008": {"name": "Taj Mahal", "type": "Monument", "rarity": "Mythique", "pv": 5, "value": 4800, "buyable": true, "sellable": true},
+    "oeuvre_001": {"name": "Petit croquis", "type": "Œuvre", "rarity": "Commune", "pv": 1, "value": 1, "buyable": true, "sellable": true},
+    "oeuvre_002": {"name": "La Vénus de Milo", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 2, "value": 13, "buyable": true, "sellable": true},
+    "oeuvre_003": {"name": "La Joconde", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 3, "value": 16, "buyable": true, "sellable": true},
+    "oeuvre_004": {"name": "Le David", "type": "Œuvre", "rarity": "Mythique", "pv": 5, "value": 4400, "buyable": true, "sellable": true},
+    "oeuvre_005": {"name": "Nymphéas", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 2, "value": 13, "buyable": true, "sellable": true},
+    "oeuvre_006": {"name": "La Nuit étoilée", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 3, "value": 16, "buyable": true, "sellable": true},
+    "oeuvre_007": {"name": "Le Penseur", "type": "Œuvre", "rarity": "Inhabituelle", "pv": 2, "value": 13, "buyable": true, "sellable": true},
+    "oeuvre_008": {"name": "Le Dernier Repas", "type": "Œuvre", "rarity": "Mythique", "pv": 5, "value": 4400, "buyable": true, "sellable": true},
+    "artiste_001": {"name": "Peintre de rue", "type": "Artiste", "rarity": "Commune", "pv": 1, "value": 1, "buyable": true, "sellable": true},
+    "artiste_002": {"name": "Monet", "type": "Artiste", "rarity": "Commune", "pv": 2, "value": 1, "buyable": true, "sellable": true},
+    "artiste_003": {"name": "Van Gogh", "type": "Artiste", "rarity": "Inhabituelle", "pv": 3, "value": 16, "buyable": true, "sellable": true},
+    "artiste_004": {"name": "Léonard de Vinci", "type": "Artiste", "rarity": "Mythique", "pv": 5, "value": 4400, "buyable": true, "sellable": true},
+    "artiste_005": {"name": "Rodin", "type": "Artiste", "rarity": "Commune", "pv": 2, "value": 1, "buyable": true, "sellable": true},
+    "artiste_006": {"name": "Michel-Ange", "type": "Artiste", "rarity": "Mythique", "pv": 5, "value": 4400, "buyable": true, "sellable": true},
+    "artiste_007": {"name": "Picasso", "type": "Artiste", "rarity": "Inhabituelle", "pv": 3, "value": 16, "buyable": true, "sellable": true},
+    "artiste_008": {"name": "Renoir", "type": "Artiste", "rarity": "Commune", "pv": 2, "value": 1, "buyable": true, "sellable": true},
+    "artiste_009": {"name": "Raphaël", "type": "Artiste", "rarity": "Inhabituelle", "pv": 3, "value": 16, "buyable": true, "sellable": true},
+    "artiste_010": {"name": "Dali", "type": "Artiste", "rarity": "Mythique", "pv": 5, "value": 4400, "buyable": true, "sellable": true},
+    "evenement_001": {"name": "Inauguration", "type": "Événement", "rarity": "Commune", "pv": 0, "value": 1, "buyable": true, "sellable": true},
+    "evenement_002": {"name": "Restauration", "type": "Événement", "rarity": "Commune", "pv": 0, "value": 1, "buyable": true, "sellable": true},
+    "evenement_003": {"name": "Vol", "type": "Événement", "rarity": "Inhabituelle", "pv": 0, "value": 8, "buyable": true, "sellable": true},
+    "evenement_004": {"name": "Fermeture", "type": "Événement", "rarity": "Inhabituelle", "pv": 0, "value": 8, "buyable": true, "sellable": true},
+    "evenement_005": {"name": "Exposition", "type": "Événement", "rarity": "Rare", "pv": 0, "value": 80, "buyable": true, "sellable": true},
+    "evenement_006": {"name": "Séisme", "type": "Événement", "rarity": "Rare", "pv": 0, "value": 80, "buyable": true, "sellable": true},
+    "evenement_007": {"name": "Mécénat royal", "type": "Événement", "rarity": "Mythique", "pv": 0, "value": 1600, "buyable": true, "sellable": true},
+    "evenement_008": {"name": "Guerre mondiale", "type": "Événement", "rarity": "Mythique", "pv": 0, "value": 1600, "buyable": true, "sellable": true},
+    "evenement_011": {"name": "Parjure", "type": "Événement", "rarity": "Inhabituelle", "pv": 0, "value": 8, "buyable": true, "sellable": true},
+    "evenement_012": {"name": "Scandale", "type": "Événement", "rarity": "Rare", "pv": 0, "value": 80, "buyable": true, "sellable": true}
+  },
+  "currency": "écu",
+  "exchange_rules": {
+    "buy_fee": 0.10,
+    "sell_fee": 0.05,
+    "min_value": 1,
+    "max_value": 2000
+  },
+  "stats": {
+    "total_cards": 22,
+    "total_value": 29050,
+    "avg_value": 1320.45
+  }
+}

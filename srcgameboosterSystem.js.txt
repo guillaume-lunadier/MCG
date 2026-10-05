@@ -1,0 +1,108 @@
+// Museum Card Game (MCG) - Système de Boosters
+
+// Afficher les packs de boosters disponibles
+function displayBoosterPacks() {
+    const container = document.getElementById('booster-packs');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    boosterPacks.forEach(pack => {
+        const packElement = document.createElement('div');
+        packElement.className = 'booster-pack';
+        packElement.innerHTML = `
+            <h3>${pack.name}</h3>
+            <p>${pack.description}</p>
+            <p><strong>Prix:</strong> ${pack.price} pièces</p>
+            <p><strong>Cartes:</strong> ${pack.cardsPerPack}</p>
+            <button class="btn btn-primary" onclick="buyBooster('${pack.id}')">
+                <i class="fas fa-shopping-cart"></i> Acheter
+            </button>
+        `;
+        container.appendChild(packElement);
+    });
+}
+
+// Acheter un booster
+function buyBooster(packId) {
+    const pack = boosterPacks.find(p => p.id === packId);
+    if (!pack) {
+        alert('Booster non trouvé!');
+        return;
+    }
+
+    if (playerCollection.coins < pack.price) {
+        alert(`Vous n'avez pas assez de pièces (nécessite ${pack.price} pièces).`);
+        return;
+    }
+
+    const cards = openBooster(packId);
+    if (cards) {
+        const resultContainer = document.getElementById('booster-result');
+        const cardsContainer = document.getElementById('booster-cards');
+
+        if (resultContainer && cardsContainer) {
+            cardsContainer.innerHTML = '';
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'booster-card';
+                cardElement.innerHTML = `
+                    <img src="${card.image || 'https://via.placeholder.com/100x150?text=' + encodeURIComponent(card.name)}" alt="${card.name}">
+                    <p><strong>${card.name}</strong></p>
+                    <p>${card.rarity} (${card.type})</p>
+                `;
+                cardsContainer.appendChild(cardElement);
+            });
+
+            resultContainer.style.display = 'block';
+        }
+
+        updatePlayerStats();
+    }
+}
+
+// Afficher le cooldown
+function displayBoosterCooldown() {
+    const cooldownElement = document.getElementById('booster-cooldown');
+    if (!cooldownElement) return;
+
+    if (isBoosterCooldownOver()) {
+        cooldownElement.textContent = 'Prêt à ouvrir un booster!';
+        cooldownElement.style.color = '#4CAF50';
+    } else {
+        const remainingTime = getBoosterCooldownTime();
+        cooldownElement.textContent = `Attendre: ${formatCooldownTime(remainingTime)}`;
+        cooldownElement.style.color = '#F44336';
+    }
+}
+
+// Mettre à jour l'affichage des boosters
+function updateBoosterUI() {
+    displayBoosterPacks();
+    displayBoosterCooldown();
+    updatePlayerStats();
+}
+
+// Attacher les événements
+function initBoosterSystem() {
+    const boosterScreen = document.getElementById('booster-screen');
+    if (boosterScreen) {
+        displayBoosterPacks();
+        displayBoosterCooldown();
+    }
+
+    // Bouton de retour
+    const closeBoosterBtn = document.getElementById('close-booster-btn');
+    if (closeBoosterBtn) {
+        closeBoosterBtn.addEventListener('click', () => {
+            document.getElementById('booster-result').style.display = 'none';
+        });
+    }
+}
+
+// Exporter les fonctions
+window.displayBoosterPacks = displayBoosterPacks;
+window.buyBooster = buyBooster;
+window.displayBoosterCooldown = displayBoosterCooldown;
+window.updateBoosterUI = updateBoosterUI;
+window.initBoosterSystem = initBoosterSystem;
